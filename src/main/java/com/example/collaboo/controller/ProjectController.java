@@ -6,10 +6,7 @@ import com.example.collaboo.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +29,15 @@ public class ProjectController {
     public ResponseEntity<List<ProjectDTO>> getAllProjects() {
         List<ProjectDTO> projects = projectService.getAllProjects();
         return new ResponseEntity<>(projects, HttpStatus.OK);
+    }
+
+    @PutMapping("/projects/{projectId}")
+    public ResponseEntity<ProjectDTO> updateProject(@PathVariable Long projectId, @RequestBody ProjectDTO projectDTO) {
+        try {
+            ProjectDTO updatedProject = projectService.updateProject(projectId, projectDTO);
+            return ResponseEntity.ok(updatedProject);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }
