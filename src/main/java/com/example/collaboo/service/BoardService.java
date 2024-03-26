@@ -41,5 +41,13 @@ public class BoardService {
         responseDTO.setDescription(board.getDescription());
         return responseDTO;
     }
+    public void updateBoard(Long boardId, BoardDTO boardDTO) {
+        Board board = boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다."));
+        board.setTitle(boardDTO.getTitle());
+        board.setCategory(boardDTO.getCategory());
+        board.setCode(boardDTO.getCode());
+        board.setDescription(boardDTO.getDescription());
 
+        boardRepository.save(board);
+    }
 }
