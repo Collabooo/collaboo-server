@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/projects")
 @RestController
 public class TaskController {
@@ -23,5 +25,11 @@ public class TaskController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("투두 리스트 추가 중 오류가 발생했습니다.");
         }
+    }
+
+    @GetMapping("/{projectId}/tasks")
+    public ResponseEntity<List<TaskDTO>> getAllTasksByProjectId(@PathVariable Long projectId) {
+        List<TaskDTO> tasks = taskService.getAllTasksByProjectId(projectId);
+        return ResponseEntity.ok(tasks);
     }
 }
