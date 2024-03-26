@@ -1,4 +1,3 @@
-// RoleController.java
 package com.example.collaboo.controller;
 
 import com.example.collaboo.dto.RoleDTO;
@@ -7,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/projects")
 @RestController
@@ -23,5 +24,11 @@ public class RoleController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("역할 추가 중 오류가 발생했습니다.");
         }
+    }
+
+    @GetMapping("/{projectId}/roles")
+    public ResponseEntity<List<RoleDTO>> getAllRolesByProjectId(@PathVariable Long projectId) {
+        List<RoleDTO> roles = roleService.getAllRolesByProjectId(projectId);
+        return ResponseEntity.ok(roles);
     }
 }
