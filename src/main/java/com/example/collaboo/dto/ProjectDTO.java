@@ -9,9 +9,11 @@ import java.util.Date;
 @Getter
 @Setter
 public class ProjectDTO {
+
     private String project;
     private int teams;
     private Date start;
     private Date end;
     private String description;
+    private int user_id;
 }

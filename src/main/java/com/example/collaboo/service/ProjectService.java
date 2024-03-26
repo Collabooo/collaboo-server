@@ -1,14 +1,13 @@
-// ProjectService.java
 package com.example.collaboo.service;
 
 import com.example.collaboo.domain.Project;
-import com.example.collaboo.domain.User;
 import com.example.collaboo.dto.ProjectDTO;
 import com.example.collaboo.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectService {
@@ -16,12 +15,7 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
-
-
     public void createProject(ProjectDTO projectDTO) {
-
-
-        // Project 엔티티 생성 및 데이터 셋팅
         Project project = new Project();
         project.setProject(projectDTO.getProject());
         project.setTeams(projectDTO.getTeams());
@@ -29,9 +23,23 @@ public class ProjectService {
         project.setEnd(projectDTO.getEnd());
         project.setDescription(projectDTO.getDescription());
 
-
-
-        // 프로젝트 저장
         projectRepository.save(project);
+    }
+
+    public List<ProjectDTO> getAllProjects() {
+        List<Project> projects = projectRepository.findAll();
+        return projects.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    private ProjectDTO convertToDTO(Project project) {
+        ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setProject(project.getProject());
+        projectDTO.setTeams(project.getTeams());
+        projectDTO.setStart(project.getStart());
+        projectDTO.setEnd(project.getEnd());
+        projectDTO.setDescription(project.getDescription());
+        return projectDTO;
     }
 }
