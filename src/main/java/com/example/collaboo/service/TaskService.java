@@ -9,6 +9,9 @@ import com.example.collaboo.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class TaskService {
 
@@ -27,5 +30,18 @@ public class TaskService {
         task.setTodo(taskDTO.getTodo());
         task.setCompleted(taskDTO.isCompleted());
         taskRepository.save(task);
+    }
+    public List<TaskDTO> getAllTasksByProjectId(Long projectId) {
+        List<Task> tasks = taskRepository.findByProjectId(projectId);
+        return tasks.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    private TaskDTO convertToDTO(Task task) {
+        TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setTodo(task.getTodo());
+        taskDTO.setCompleted(task.isCompleted());
+        return taskDTO;
     }
 }
