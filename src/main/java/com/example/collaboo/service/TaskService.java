@@ -58,4 +58,8 @@ public class TaskService {
         taskDTO.setCompleted(task.isCompleted());
         return taskDTO;
     }
+    public void deleteTask(Long projectId, Long taskId) {
+        // 투두 리스트를 삭제
+        taskRepository.deleteById(taskId);
+    }
 }
