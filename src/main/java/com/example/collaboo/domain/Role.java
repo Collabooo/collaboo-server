@@ -25,8 +25,8 @@ public class Role {
     @JoinColumn(name = "project_id", referencedColumnName = "id")
     private Project project;
 
-    @Column(name = "rolename", length = 255)
-    private String roleName;
+    @Column(name = "rolename", length = 100)
+    private String rolename;
 
     @Column(name = "person", length = 255)
     private String person;
