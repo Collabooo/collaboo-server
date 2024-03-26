@@ -11,7 +11,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@Table(name = "tasks")
+@Table(name = "todos")
 public class Todo {
 
     @Id
