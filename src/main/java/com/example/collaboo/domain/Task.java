@@ -1,11 +1,9 @@
 package com.example.collaboo.domain;
 
-import com.example.collaboo.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
 
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,23 +20,13 @@ public class Task {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    @JoinColumn(name = "project_id", referencedColumnName = "id")
+    private Project project;
 
-    @Column(name = "title", length = 255)
-    private String title;
+    @Column(name = "todo", columnDefinition = "TEXT")
+    private String todo;
 
-    @Column(name = "category", length = 10)
-    private String category;
-
-    @Column(name = "description", length = 255)
-    private String description;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "due_date")
-    private Date dueDate;
-
-    @Column(name = "code", length = 255)
-    private String code;
+    @Column(name = "completed", columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean completed;
 
 }
