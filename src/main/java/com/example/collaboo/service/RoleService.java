@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -54,4 +55,21 @@ public class RoleService {
         roleDTO.setDescription(role.getDescription());
         return roleDTO;
     }
+
+    public void updateRole(Long projectId, Long roleId, RoleDTO roleDTO) {
+        Optional<Role> optionalRole = roleRepository.findById(roleId);
+        if (optionalRole.isPresent()) {
+            Role role = optionalRole.get();
+            role.setRolename(roleDTO.getRolename());
+            role.setPerson(roleDTO.getPerson());
+            role.setStart(roleDTO.getStart());
+            role.setEnd(roleDTO.getEnd());
+            role.setDescription(roleDTO.getDescription());
+
+            roleRepository.save(role);
+        } else {
+            throw new IllegalArgumentException("해당 역할을 찾을 수 없음");
+        }
+    }
+
 }
