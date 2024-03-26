@@ -53,4 +53,14 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("삭제할 사용자가 없습니다.");
         }
     }
+
+    @PutMapping("/users/{userId}")
+    public ResponseEntity<String> updateUser(@PathVariable Long userId, @RequestBody UserDTO userDTO) {
+        try {
+            userService.updateUser(userId, userDTO);
+            return ResponseEntity.ok("사용자 정보가 성공적으로 업데이트되었습니다.");
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("수정할 사용자가 없습니다.");
+        }
+    }
 }
