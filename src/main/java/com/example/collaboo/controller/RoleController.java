@@ -31,4 +31,17 @@ public class RoleController {
         List<RoleDTO> roles = roleService.getAllRolesByProjectId(projectId);
         return ResponseEntity.ok(roles);
     }
+    @PutMapping("/{projectId}/roles/{roleId}")
+    public ResponseEntity<String> updateRole(
+            @PathVariable Long projectId,
+            @PathVariable Long roleId,
+            @RequestBody RoleDTO roleDTO) {
+        try {
+            roleService.updateRole(projectId, roleId, roleDTO);
+            return ResponseEntity.ok("역할이 성공적으로 수정되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("역할 수정 중 오류가 발생했습니다.");
+        }
+    }
 }
