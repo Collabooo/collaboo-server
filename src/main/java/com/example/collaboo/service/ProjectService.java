@@ -60,4 +60,8 @@ public class ProjectService {
         // 업데이트된 프로젝트 정보를 DTO로 변환하여 반환
         return convertToDTO(project);
     }
+
+    public void deleteProject(Long projectId) {
+        projectRepository.deleteById(projectId);
+    }
 }

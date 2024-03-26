@@ -40,4 +40,14 @@ public class ProjectController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
+    @DeleteMapping("/projects/{projectId}")
+    public ResponseEntity<String> deleteProject(@PathVariable Long projectId) {
+        try {
+            projectService.deleteProject(projectId);
+            return ResponseEntity.ok("프로젝트가 성공적으로 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("프로젝트 삭제 중 오류가 발생했습니다.");
+        }
+    }
 }
