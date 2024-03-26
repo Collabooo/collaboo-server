@@ -7,6 +7,9 @@ import com.example.collaboo.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class BoardService {
 
@@ -22,4 +25,21 @@ public class BoardService {
 
         boardRepository.save(board);
     }
+
+    public List<BoardDTO> getAllBoards() {
+        List<Board> boards = boardRepository.findAll();
+        return boards.stream()
+                .map(this::convertToResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    private BoardDTO convertToResponseDTO(Board board) {
+        BoardDTO responseDTO = new BoardDTO();
+        responseDTO.setTitle(board.getTitle());
+        responseDTO.setCategory(board.getCategory());
+        responseDTO.setCode(board.getCode());
+        responseDTO.setDescription(board.getDescription());
+        return responseDTO;
+    }
+
 }
