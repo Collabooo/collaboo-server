@@ -31,11 +31,25 @@ public class TaskService {
         task.setCompleted(taskDTO.isCompleted());
         taskRepository.save(task);
     }
+
     public List<TaskDTO> getAllTasksByProjectId(Long projectId) {
         List<Task> tasks = taskRepository.findByProjectId(projectId);
         return tasks.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
+    }
+
+    public void updateTask(Long projectId, Long taskId, TaskDTO taskDTO) {
+        Task task = taskRepository.findById(taskId).orElseThrow(() -> new IllegalArgumentException("투두 리스트를 찾을 수 없음"));
+        Project project = projectRepository.findById(projectId).orElseThrow(() -> new IllegalArgumentException("프로젝트를 찾을 수 없음"));
+
+        if (!task.getProject().getId().equals(project.getId())) {
+            throw new IllegalArgumentException("해당 프로젝트에 속한 투두 리스트가 아님");
+        }
+
+        task.setTodo(taskDTO.getTodo());
+        task.setCompleted(taskDTO.isCompleted());
+        taskRepository.save(task);
     }
 
     private TaskDTO convertToDTO(Task task) {
