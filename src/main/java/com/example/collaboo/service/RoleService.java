@@ -71,5 +71,14 @@ public class RoleService {
             throw new IllegalArgumentException("해당 역할을 찾을 수 없음");
         }
     }
+    public void deleteRole(Long projectId, Long roleId) {
+        Optional<Role> optionalRole = roleRepository.findById(roleId);
+        if (optionalRole.isPresent()) {
+            Role role = optionalRole.get();
+            roleRepository.delete(role);
+        } else {
+            throw new IllegalArgumentException("해당 역할을 찾을 수 없음");
+        }
+    }
 
 }
