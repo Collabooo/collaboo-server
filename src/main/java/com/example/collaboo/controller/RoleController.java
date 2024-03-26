@@ -44,4 +44,16 @@ public class RoleController {
                     .body("역할 수정 중 오류가 발생했습니다.");
         }
     }
+    @DeleteMapping("/{projectId}/roles/{roleId}")
+    public ResponseEntity<String> deleteRole(
+            @PathVariable Long projectId,
+            @PathVariable Long roleId) {
+        try {
+            roleService.deleteRole(projectId, roleId);
+            return ResponseEntity.ok("역할이 성공적으로 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("역할 삭제 중 오류가 발생했습니다.");
+        }
+    }
 }
