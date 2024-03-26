@@ -1,4 +1,3 @@
-// RoleService.java
 package com.example.collaboo.service;
 
 import com.example.collaboo.domain.Role;
@@ -8,6 +7,9 @@ import com.example.collaboo.repository.ProjectRepository;
 import com.example.collaboo.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RoleService {
@@ -34,5 +36,22 @@ public class RoleService {
 
         // 역할 저장
         roleRepository.save(role);
+    }
+
+    public List<RoleDTO> getAllRolesByProjectId(Long projectId) {
+        List<Role> roles = roleRepository.findByProjectId(projectId);
+        return roles.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    private RoleDTO convertToDTO(Role role) {
+        RoleDTO roleDTO = new RoleDTO();
+        roleDTO.setRolename(role.getRolename());
+        roleDTO.setPerson(role.getPerson());
+        roleDTO.setStart(role.getStart());
+        roleDTO.setEnd(role.getEnd());
+        roleDTO.setDescription(role.getDescription());
+        return roleDTO;
     }
 }
