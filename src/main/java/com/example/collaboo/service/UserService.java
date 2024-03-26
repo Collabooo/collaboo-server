@@ -33,4 +33,16 @@ public class UserService {
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
     }
+
+    public void updateUser(Long userId, UserDTO userDTO) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new EmptyResultDataAccessException("수정할 사용자가 없습니다.", 1));
+
+        // 사용자 정보 업데이트
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
+        user.setName(userDTO.getName());
+        user.setProfile(userDTO.getProfile());
+
+        userRepository.save(user);
+    }
 }
