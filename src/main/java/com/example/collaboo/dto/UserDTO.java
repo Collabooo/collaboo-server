@@ -1,6 +1,6 @@
+// UserDTO.java
 package com.example.collaboo.dto;
 
-// UserDTO.java
 public class UserDTO {
     private String email;
     private String password;
@@ -37,5 +37,22 @@ public class UserDTO {
 
     public void setProfile(String profile) {
         this.profile = profile;
+    }
+
+    // 로그인 응답 클래스
+    public class LoginResponse {
+        private String message;
+
+        public LoginResponse(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
     }
 }
