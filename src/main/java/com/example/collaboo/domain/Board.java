@@ -33,9 +33,6 @@ public class Board {
     @Column(name = "description", length = 255)
     private String description;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "due_date")
-    private Date dueDate;
 
     @Column(name = "code", length = 255)
     private String code;
