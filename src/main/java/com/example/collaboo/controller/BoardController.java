@@ -16,7 +16,7 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    @PostMapping("/boards")
+    @PostMapping("")
     public ResponseEntity<String> createBoard(@RequestBody BoardDTO boardDTO) {
         try {
             boardService.createBoard(boardDTO);
